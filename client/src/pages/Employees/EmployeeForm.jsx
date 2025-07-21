@@ -1,6 +1,5 @@
-// /src/pages/Employees/EmployeeForm.jsx
 import { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 export default function EmployeeForm({ employee, onClose }) {
   const [formData, setFormData] = useState({
@@ -18,8 +17,8 @@ export default function EmployeeForm({ employee, onClose }) {
 
   const fetchTeams = async () => {
     try {
-        const res = await axios.get("/team");
-        console.log("Team data:", res.data); // check the shape!
+        const res = await instance.get("/team");
+        console.log("Team data:", res.data);
         setTeams(Array.isArray(res.data) ? res.data : res.data.teams || []);
     } catch (err) {
       console.error("Failed to load teams", err);
@@ -37,9 +36,9 @@ export default function EmployeeForm({ employee, onClose }) {
     e.preventDefault();
     try {
       if (employee) {
-        await axios.put(`/employee/${employee._id}`, formData);
+        await instance.put(`/employee/${employee._id}`, formData);
       } else {
-        await axios.post("/employee/create", formData);
+        await instance.post("/employee/create", formData);
       }
       onClose();
     } catch (err) {

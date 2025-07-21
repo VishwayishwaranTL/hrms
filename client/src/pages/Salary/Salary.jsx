@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
 import AddSalary from "./AddSalary";
+import instance from "../../services/axiosInstance";
 
 const Salary = () => {
   const [salaries, setSalaries] = useState([]);
@@ -16,7 +16,7 @@ const Salary = () => {
 
   const fetchSalaries = async () => {
     try {
-      const res = await axios.get("/salary");
+      const res = await instance.get("/salary");
       setSalaries(res.data.salaries);
       setFiltered(res.data.salaries);
     } catch (err) {
@@ -26,7 +26,7 @@ const Salary = () => {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get("/employee");
+      const res = await instance.get("/employee");
       setEmployees(res.data.employees);
     } catch (err) {
       console.error("Error fetching employees", err);
@@ -62,7 +62,6 @@ const Salary = () => {
         </button>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-4">
         <select name="department" value={filter.department} onChange={handleFilterChange} className="p-2 border rounded">
           <option value="">All Departments</option>
@@ -86,7 +85,6 @@ const Salary = () => {
         </select>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border rounded shadow">
           <thead className="bg-gray-100">

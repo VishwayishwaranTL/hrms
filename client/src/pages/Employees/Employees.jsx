@@ -1,8 +1,7 @@
-// /src/pages/Employees/Employees.jsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../services/axiosInstance";
 import EmployeeForm from "./EmployeeForm";
+import instance from "../../services/axiosInstance";
 
 export default function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -12,7 +11,7 @@ export default function Employees() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get("/employee");
+      const res = await instance.get("/employee");
       setEmployees(res.data.employees || []);
     } catch (err) {
       console.error("Failed to fetch employees", err);
@@ -22,7 +21,7 @@ export default function Employees() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this employee?")) return;
     try {
-      await axios.delete(`/employee/${id}`);
+      await instance.delete(`/employee/${id}`);
       fetchEmployees();
     } catch (err) {
       console.error("Delete error", err);

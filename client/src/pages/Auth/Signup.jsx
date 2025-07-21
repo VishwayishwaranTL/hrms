@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../services/axiosInstance";
 import AuthLayout from "../../layouts/AuthLayout";
 import useAuth from "../../context/AuthContext";
+import instance from "../../services/axiosInstance";
 
 export default function Signup() {
   const { register, handleSubmit, watch, setError, formState: { errors } } = useForm();
@@ -20,7 +20,7 @@ export default function Signup() {
     }
 
     try {
-      const res = await axios.post("/auth/signup", {
+      const res = await instance.post("/auth/signup", {
         name: data.name,
         email: data.email,
         password: data.password,
@@ -41,7 +41,6 @@ export default function Signup() {
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
-        {/* Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
@@ -53,7 +52,6 @@ export default function Signup() {
           {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
         </div>
 
-        {/* Email */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Email</label>
           <input
@@ -65,7 +63,6 @@ export default function Signup() {
           {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
         </div>
 
-        {/* Role */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Role</label>
           <select
@@ -81,7 +78,6 @@ export default function Signup() {
           {errors.role && <p className="text-red-500 text-sm">{errors.role.message}</p>}
         </div>
 
-        {/* Password */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Password</label>
           <div className="relative">
@@ -101,7 +97,6 @@ export default function Signup() {
           {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
         </div>
 
-        {/* Confirm Password */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Confirm Password</label>
           <div className="relative">
@@ -123,7 +118,6 @@ export default function Signup() {
           )}
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300"

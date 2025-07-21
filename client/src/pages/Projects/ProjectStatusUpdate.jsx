@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 export default function ProjectStatusUpdate({ project, onClose, onStatusUpdated }) {
   const [status, setStatus] = useState(project.status);
@@ -8,7 +8,7 @@ export default function ProjectStatusUpdate({ project, onClose, onStatusUpdated 
   const handleUpdate = async () => {
     try {
       setLoading(true);
-      await axios.put(`/projects/${project._id}/status`, { status });
+      await instance.put(`/projects/${project._id}/status`, { status });
       onStatusUpdated();
       onClose();
     } catch (err) {

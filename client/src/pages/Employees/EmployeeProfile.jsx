@@ -1,7 +1,6 @@
-// /src/pages/Employees/EmployeeProfile.jsx
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 export default function EmployeeProfile() {
   const { id } = useParams();
@@ -10,7 +9,7 @@ export default function EmployeeProfile() {
 
   const fetchEmployee = async () => {
     try {
-      const res = await axios.get(`/employee/${id}`);
+      const res = await instance.get(`/employee/${id}`);
       console.log("Employee Data:", res.data);
       setEmployee(res.data);
     } catch (err) {
@@ -29,7 +28,6 @@ export default function EmployeeProfile() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="bg-white shadow-md rounded-2xl p-6 border border-gray-200">
-        {/* Profile Image + Name */}
         <div className="flex flex-col sm:flex-row items-center gap-6 mb-6">
           <img
             src={user?.profileImgUrl || "/default-profile.png"}
@@ -42,7 +40,6 @@ export default function EmployeeProfile() {
           </div>
         </div>
 
-        {/* Contact Info */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div>
             <p><span className="font-semibold text-gray-700">Email:</span> {employee.email || user?.email}</p>

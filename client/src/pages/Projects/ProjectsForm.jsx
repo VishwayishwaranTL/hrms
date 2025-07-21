@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 export default function ProjectsForm({ onClose }) {
   const [teams, setTeams] = useState([]);
@@ -14,7 +14,7 @@ export default function ProjectsForm({ onClose }) {
 
   useEffect(() => {
     const fetchTeams = async () => {
-      const res = await axios.get("/team");
+      const res = await instance.get("/team");
       setTeams(res.data.teams);
     };
     fetchTeams();
@@ -23,7 +23,7 @@ export default function ProjectsForm({ onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/projects/create", form);
+      await instance.post("/projects/create", form);
       onClose();
     } catch (err) {
       console.error("Error creating project", err);

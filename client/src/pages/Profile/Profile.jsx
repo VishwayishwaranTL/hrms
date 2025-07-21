@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../context/AuthContext";
-import axios from "../../services/axiosInstance";
 import { Camera } from "lucide-react";
+import instance from "../../services/axiosInstance";
 
 export default function Profile() {
   const { user, token, login } = useAuth();
@@ -10,7 +10,7 @@ export default function Profile() {
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
-        const res = await axios.get("/employee/me", {
+        const res = await instance.get("/employee/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEmployee(res.data.employee);
@@ -30,7 +30,7 @@ export default function Profile() {
     formData.append("profile", file);
 
     try {
-      const res = await axios.post("/users/upload-profile", formData, {
+      const res = await instance.post("/users/upload-profile", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

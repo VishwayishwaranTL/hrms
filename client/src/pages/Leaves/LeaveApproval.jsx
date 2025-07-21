@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 const LeavesApproval = ({ leave, onClose, onUpdate }) => {
   const [status, setStatus] = useState(leave.status);
 
   const handleSubmit = async () => {
     try {
-      await axios.put(`/leave/${leave._id}/status`, { status });
-      onUpdate(); // Refresh leave list
-      onClose();  // Close modal
+      await instance.put(`/leave/${leave._id}/status`, { status });
+      onUpdate();
+      onClose();
     } catch (error) {
       console.error("Error updating leave status:", error);
     }

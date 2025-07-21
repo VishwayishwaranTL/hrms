@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
 import useAuth from "../../context/AuthContext";
 import { ClipLoader } from "react-spinners";
+import instance from "../../services/axiosInstance";
 
 export default function MyTeam() {
   const { token } = useAuth();
@@ -10,7 +10,7 @@ export default function MyTeam() {
 
   const fetchMyTeams = async () => {
     try {
-      const res = await axios.get("/team/myteam", {
+      const res = await instance.get("/team/myteam", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMyTeams(res.data.teams || []);

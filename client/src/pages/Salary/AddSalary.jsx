@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 const monthsList = [
   "January", "February", "March", "April", "May", "June",
@@ -21,7 +21,7 @@ const AddSalary = ({ isOpen, onClose, onSalaryAdded }) => {
 
   useEffect(() => {
     if (isOpen) {
-      axios.get("/employee/")
+      instance.get("/employee/")
         .then(res => setEmployees(res.data.employees))
         .catch(err => console.error("Error fetching employees:", err));
     }
@@ -58,7 +58,7 @@ const AddSalary = ({ isOpen, onClose, onSalaryAdded }) => {
         deductions: Number(deductions)
       };
 
-      await axios.post("/salary/addsalary", payload);
+      await instance.post("/salary/addsalary", payload);
       onSalaryAdded();  // Refresh salary list
       onClose();        // Close modal
     } catch (err) {

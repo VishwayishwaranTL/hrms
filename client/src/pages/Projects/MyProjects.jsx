@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 export default function MyProjects() {
   const [projects, setProjects] = useState([]);
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get("/projects/myprojects");
+      const res = await instance.get("/projects/myprojects");
       console.log("My Projects:", res.data.projects);
       setProjects(res.data.projects || []);
     } catch (err) {

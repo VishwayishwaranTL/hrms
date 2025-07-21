@@ -62,7 +62,6 @@ const History = () => {
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4 text-center">All Employee History</h1>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-4 mb-6">
         <select
           value={action}
@@ -104,7 +103,6 @@ const History = () => {
         </select>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto border border-gray-300">
           <thead className="bg-gray-100">

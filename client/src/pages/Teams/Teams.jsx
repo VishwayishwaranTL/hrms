@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
 import useAuth from "../../context/AuthContext";
 import TeamForm from "./TeamForm";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import { ClipLoader } from "react-spinners";
 import React from "react";
+import instance from "../../services/axiosInstance";
 
 export default function Teams() {
   const { token } = useAuth();
@@ -14,7 +14,6 @@ export default function Teams() {
   const [editingTeam, setEditingTeam] = useState(null);
   const [expandedTeamId, setExpandedTeamId] = useState(null);
 
-  // Filters & Pagination
   const [searchQuery, setSearchQuery] = useState("");
   const [filterDept, setFilterDept] = useState("");
   const [filterLeadId, setFilterLeadId] = useState("");
@@ -24,7 +23,7 @@ export default function Teams() {
 
   const fetchTeams = async () => {
     try {
-      const res = await axios.get("/team", {
+      const res = await instance.get("/team", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTeams(res.data.teams);
@@ -35,7 +34,7 @@ export default function Teams() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get("/employee", {
+      const res = await instance.get("/employee", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEmployees(res.data.employees);
@@ -57,7 +56,7 @@ export default function Teams() {
     if (!window.confirm("Are you sure you want to delete this team?")) return;
 
     try {
-      await axios.delete(`/team/${id}`, {
+      await instance.delete(`/team/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchTeams();
@@ -69,11 +68,11 @@ export default function Teams() {
   const handleFormSubmit = async (teamData) => {
     try {
       if (editingTeam) {
-        await axios.put(`/team/${editingTeam._id}`, teamData, {
+        await instance.put(`/team/${editingTeam._id}`, teamData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       } else {
-        await axios.post("/team/create", teamData, {
+        await instance.post("/team/create", teamData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
@@ -85,7 +84,6 @@ export default function Teams() {
     }
   };
 
-  // Filtered Teams
   const filteredTeams = teams.filter((team) => {
     const matchesSearch =
       team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -99,13 +97,11 @@ export default function Teams() {
     return matchesSearch && matchesDept && matchesLead;
   });
 
-  // Pagination
   const indexOfLast = currentPage * teamsPerPage;
   const indexOfFirst = indexOfLast - teamsPerPage;
   const currentTeams = filteredTeams.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(filteredTeams.length / teamsPerPage);
 
-  // Show spinner while loading
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -132,7 +128,6 @@ export default function Teams() {
         </button>
       </div>
 
-      {/* Search + Filters */}
       <div className="flex flex-col md:flex-row gap-4 mb-4">
         <input
           type="text"
@@ -183,7 +178,6 @@ export default function Teams() {
         </select>
       </div>
 
-      {/* Team Table */}
       <table className="w-full border text-lg">
         <thead>
           <tr className="bg-blue-900 text-white">
@@ -252,7 +246,6 @@ export default function Teams() {
         </tbody>
       </table>
 
-      {/* Pagination */}
       <div className="mt-4 flex justify-center gap-4 items-center">
         <button
           className="px-4 py-2 border rounded bg-gray-100 hover:bg-gray-200"
@@ -275,7 +268,6 @@ export default function Teams() {
         </button>
       </div>
 
-      {/* Team Form Modal */}
       {showForm && (
         <div className="fixed inset-0 backdrop-blur-sm bg-gray-300/40 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded shadow-lg w-full max-w-xl relative">

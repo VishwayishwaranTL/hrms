@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
 import LeavesApproval from "./LeaveApproval";
+import instance from "../../services/axiosInstance";
 
 const Leaves = () => {
   const [leaves, setLeaves] = useState([]);
@@ -10,7 +10,7 @@ const Leaves = () => {
 
   const fetchLeaves = async () => {
     try {
-      const res = await axios.get("/leave");
+      const res = await instance.get("/leave");
       setLeaves(res.data.leaves);
     } catch (error) {
       console.error("Error fetching leaves:", error);

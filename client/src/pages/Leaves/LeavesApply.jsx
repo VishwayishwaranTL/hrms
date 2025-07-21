@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 const LeavesApply = ({ onClose, onSuccess }) => {
   const [fromDate, setFromDate] = useState("");
@@ -18,7 +18,7 @@ const LeavesApply = ({ onClose, onSuccess }) => {
     }
 
     try {
-      const res = await axios.post("/leave/apply", {
+      const res = await instance.post("/leave/apply", {
         fromDate,
         toDate,
         reason,
@@ -26,7 +26,7 @@ const LeavesApply = ({ onClose, onSuccess }) => {
       });
 
       onSuccess(res.data.leave);
-      onClose(); // Close modal after success
+      onClose();
     } catch (err) {
       console.error("Leave apply failed", err);
       setError(err.response?.data?.message || "Failed to apply for leave.");

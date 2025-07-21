@@ -1,7 +1,5 @@
-// src/pages/salary/MySalary.jsx
-
 import React, { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
+import instance from "../../services/axiosInstance";
 
 const MySalary = () => {
   const [salaries, setSalaries] = useState([]);
@@ -13,7 +11,7 @@ const MySalary = () => {
 
   const fetchMySalaries = async () => {
     try {
-      const res = await axios.get("/salary/my");
+      const res = await instance.get("/salary/my");
       setSalaries(res.data.salaries);
     } catch (err) {
       console.error("Error fetching your salaries:", err);

@@ -68,7 +68,6 @@ export default function Dashboard() {
 
       {user.role === "admin" || user.role === "hr" ? (
         <div className="space-y-8">
-          {/* Summary Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="bg-white rounded-xl shadow p-6 border-l-4 border-red-500">
               <p className="text-sm text-gray-500">Pending Leaves</p>
@@ -84,7 +83,6 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Pending Leaves */}
           <div className="bg-white p-6 rounded-xl shadow">
             <h3 className="text-xl font-semibold text-red-600 mb-4" onClick={()=>navigate("/leaves")}>Pending Leaves</h3>
             {pendingLeaves.length > 0 ? (
@@ -100,7 +98,6 @@ export default function Dashboard() {
             )}
           </div>
 
-          {/* Ongoing Projects */}
           <div className="bg-white p-6 rounded-xl shadow">
             <h3 className="text-xl font-semibold text-blue-600 mb-4" onClick={()=>navigate("/projects")}>Ongoing Projects</h3>
             {ongoingProjects.length > 0 ? (
@@ -116,7 +113,6 @@ export default function Dashboard() {
             )}
           </div>
 
-          {/* Teams */}
           <div className="bg-white p-6 rounded-xl shadow">
             <h3 className="text-xl font-semibold text-green-600 mb-4" onClick={()=>navigate("/teams")}>Teams</h3>
             {teams.length > 0 ? (
@@ -133,9 +129,7 @@ export default function Dashboard() {
           </div>
         </div>
       ) : (
-        // Employee view
         <div className="space-y-8">
-          {/* My Team */}
           <div className="bg-white p-6 rounded-xl shadow">
             <h3 className="text-xl font-semibold text-green-600 mb-4"onClick={()=>navigate("/myteam")}>My Team</h3>
             {!myTeam || myTeam.length === 0 ? (
@@ -160,7 +154,6 @@ export default function Dashboard() {
             )}
           </div>
 
-          {/* My Projects */}
           <div className="bg-white p-6 rounded-xl shadow">
             <h3 className="text-xl font-semibold text-blue-600 mb-4" onClick={()=>navigate("/myprojects")}>My Projects</h3>
             {myProjects.length > 0 ? (
@@ -176,7 +169,6 @@ export default function Dashboard() {
             )}
           </div>
 
-          {/* My Pending Leaves */}
           <div className="bg-white p-6 rounded-xl shadow">
             <h3 className="text-xl font-semibold text-red-600 mb-4" onClick={()=>navigate("/myleaves")}>My Pending Leaves</h3>
             {myPendingLeaves.length > 0 ? (

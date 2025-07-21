@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "../../services/axiosInstance";
 import LeavesApply from "./LeavesApply";
+import instance from "../../services/axiosInstance";
 
 const MyLeaves = () => {
   const [leaves, setLeaves] = useState([]);
@@ -8,7 +8,7 @@ const MyLeaves = () => {
 
   const fetchLeaves = async () => {
     try {
-      const res = await axios.get("/leave/mine");
+      const res = await instance.get("/leave/mine");
       setLeaves(res.data);
     } catch (err) {
       console.error("Failed to fetch my leaves", err);
@@ -23,7 +23,6 @@ const MyLeaves = () => {
     setLeaves((prev) => [newLeave, ...prev]);
   };
 
-  // 🔽 Leave Summary Logic
   const currentDate = new Date();
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
@@ -124,7 +123,6 @@ const MyLeaves = () => {
       </div>
     </div>
 
-      {/* 📄 Leave Records */}
       {leaves.length === 0 ? (
         <p>No leave records found.</p>
       ) : (
@@ -141,7 +139,6 @@ const MyLeaves = () => {
         </div>
       )}
 
-      {/* 📝 Leave Apply Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <LeavesApply

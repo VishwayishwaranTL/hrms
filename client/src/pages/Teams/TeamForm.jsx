@@ -35,7 +35,6 @@ export default function TeamForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 text-base text-gray-800">
-      {/* Team Name */}
       <div>
         <label className="block mb-1 font-medium">Team Name</label>
         <input
@@ -48,7 +47,6 @@ export default function TeamForm({
         />
       </div>
 
-      {/* Department */}
       <div>
         <label className="block mb-1 font-medium">Department</label>
         <input
@@ -61,7 +59,6 @@ export default function TeamForm({
         />
       </div>
 
-      {/* Team Lead Dropdown */}
       <div>
         <label className="block mb-1 font-medium">Team Lead</label>
         <select
@@ -78,7 +75,6 @@ export default function TeamForm({
         </select>
       </div>
 
-      {/* Add Members Dropdown */}
       <div>
         <label className="block mb-1 font-medium">Add Members</label>
         <select
@@ -96,7 +92,6 @@ export default function TeamForm({
             ))}
         </select>
 
-        {/* Selected Members List */}
         {members.length > 0 && (
           <ul className="mt-3 space-y-2">
             {members.map((memberId) => {
@@ -123,7 +118,6 @@ export default function TeamForm({
         )}
       </div>
 
-      {/* Buttons */}
       <div className="flex justify-end space-x-4 pt-4">
         <button
           type="button"

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../../services/axiosInstance";
 import ProjectStatusUpdate from "./ProjectStatusUpdate";
 import ProjectsForm from "./ProjectsForm";
+import instance from "../../services/axiosInstance";
 
 export default function Projects() {
   const [projects, setProjects] = useState([]);
@@ -14,7 +15,7 @@ export default function Projects() {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get("/projects");
+      const res = await instance.get("/projects");
       setProjects(res.data.projects || []);
     } catch (err) {
       console.error("Error loading projects", err);
@@ -58,9 +59,7 @@ export default function Projects() {
 
   return (
     <div className="relative">
-      {/* Background Content with optional blur */}
       <div className={`p-6 max-w-4xl mx-auto transition-all duration-300 ${showStatusModal || showCreateModal ? "blur-sm pointer-events-none select-none" : ""}`}>
-        {/* Header & Filters */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
           <h2 className="text-3xl font-bold text-blue-800">All Projects</h2>
           <button
@@ -71,7 +70,6 @@ export default function Projects() {
           </button>
         </div>
 
-        {/* Filters */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
           <input
             type="text"
@@ -91,7 +89,6 @@ export default function Projects() {
           </select>
         </div>
 
-        {/* Project List */}
         <div className="space-y-6">
           {filteredProjects.map((proj) => (
             <div
@@ -138,7 +135,6 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* Modals (Not blurred or disabled) */}
       {showStatusModal && selectedProject && (
         <ProjectStatusUpdate
           project={selectedProject}

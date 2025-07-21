@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../context/AuthContext.jsx";
-import axios from "../../services/axiosInstance.js";
+import instance from "../../services/axiosInstance.js";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../layouts/AuthLayout.jsx";
 import { useState } from "react";
@@ -15,7 +15,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("/auth/login", data);
+      const res = await instance.post("/auth/login", data);
       login(res.data.user, res.data.token);
       navigate("/dashboard");
     } catch (err) {
@@ -29,7 +29,6 @@ export default function Login() {
         Login to HRMS
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        {/* Email */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Email
@@ -42,7 +41,6 @@ export default function Login() {
           />
         </div>
 
-        {/* Password */}
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Password
@@ -63,7 +61,6 @@ export default function Login() {
           </div>
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300"
